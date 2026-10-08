@@ -77,10 +77,10 @@ Two database files ship with the repo:
 To restore the working copy to its original state:
 
 ```bash
-python reset_db.py
+python -m backend.reset_db
 ```
 
-`reset_db.py --check` reports drift without changing anything, and `--yes` skips
+`python -m backend.reset_db --check` reports drift without changing anything, and `--yes` skips
 the confirmation prompt. The script refuses to run if the pristine original has
 itself drifted from its recorded baseline, verifies the copy by hash afterwards,
 and appends a `database_reset` record to the audit trail.
@@ -136,7 +136,7 @@ The API base URL lives in `frontend/.env.development` as `VITE_API_BASE_URL`.
 
 ## A full three-ticket run
 
-1. **Reset the working database first** — `python reset_db.py`. Checking
+1. **Reset the working database first** — `python -m backend.reset_db`. Checking
    balance returns to **$3,400.00**, the payments table empties, and all three
    tickets return to `open`.
 2. Start the backend, then the dashboard.
@@ -185,12 +185,25 @@ and a reset never erases the audit trail.
 
 ```
 hw5/
-├── backend/          FastAPI layer + the five agents and their prompts
+├── AI_prompts.md
+├── requirements.txt
+├── .env.example
+├── .gitignore
+├── .mcp.json
+├── README.md
+├── data/             pristine and working SQLite databases
 ├── mcp_server/       FastMCP server — the only path to shop data
 ├── frontend/         React + Vite + TypeScript dashboard
-├── data/             pristine and working SQLite databases
-├── output/           deliverables and evidence
-├── proposal_store.py payment proposals awaiting human approval
-├── resolution_store.py ticket-closure requests awaiting human confirmation
-└── reset_db.py       restores the working database to baseline
+├── backend/          FastAPI layer, the five agents, and their prompts
+│   ├── main.py       HTTP routes only — no SQL, no business rules
+│   ├── models.py     shared Pydantic contracts
+│   ├── agents.py     the five agents and the delegate tool
+│   ├── runner.py     ticket-run orchestration
+│   ├── audit.py      append-only audit trail
+│   ├── config.py     model name and every hard limit
+│   ├── proposal_store.py    payments awaiting human approval
+│   ├── resolution_store.py  closures awaiting human confirmation
+│   ├── reset_db.py          restores the working database to baseline
+│   └── prompts/      one system prompt per agent
+└── output/           deliverables and evidence
 ```

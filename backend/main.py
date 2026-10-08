@@ -33,9 +33,9 @@ if str(_HW5_ROOT) not in sys.path:
 from fastapi import FastAPI, HTTPException, Path as PathParam, Query  # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 
-import proposal_store  # noqa: E402
-import reset_db  # noqa: E402
-import resolution_store  # noqa: E402
+from backend import proposal_store  # noqa: E402
+from backend import reset_db  # noqa: E402
+from backend import resolution_store  # noqa: E402
 from backend import config  # noqa: E402
 from backend.agents import build_agents, build_mcp_toolset  # noqa: E402
 from backend.audit import append_event  # noqa: E402

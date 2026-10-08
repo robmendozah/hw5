@@ -30,7 +30,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Literal
 
-HW5_ROOT = Path(__file__).resolve().parent
+HW5_ROOT = Path(__file__).resolve().parent.parent
 STORE_PATH = HW5_ROOT / "output" / "proposals.json"
 
 _LOCK = threading.Lock()

@@ -25,7 +25,7 @@ import sys
 import uuid
 from pathlib import Path
 
-HW5 = Path(__file__).resolve().parent
+HW5 = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(HW5))
 
 from backend.audit import append_event  # noqa: E402

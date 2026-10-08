@@ -17,8 +17,8 @@ from fastmcp import FastMCP
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-import proposal_store  # noqa: E402  (shared with the FastAPI backend)
-import resolution_store  # noqa: E402
+from backend import proposal_store  # noqa: E402  (shared with the FastAPI backend)
+from backend import resolution_store  # noqa: E402
 
 # data/campus_customs_new.db is the working copy. The original
 # data/campus_customs.db is never opened by this server.
