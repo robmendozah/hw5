@@ -170,13 +170,16 @@ For reference, the recorded run in `output/` went
 
 ## Verification
 
-```bash
-python verify_problem5.py     # 33 checks: agents, tools, limits, audit, no direct SQL
-python test_api.py            # 28 checks against a running backend
-```
+The system was checked by two scripts during development — 33 structural checks
+on the agents, tools, limits and audit trail, and 28 end-to-end checks against a
+running backend covering the approval controls. Both passed in full. The checks
+and their results are documented in `output/harness.md`; the scripts themselves
+are not part of the submission.
 
-`test_api.py` deliberately mutates the working database and restores it via
-`POST /reset` at the end.
+The controls they cover can be exercised directly through `/docs` or the
+dashboard: an approval cannot carry an arbitrary amount, a payment is refused
+when cash is short even after approval, the same proposal cannot execute twice,
+and a reset never erases the audit trail.
 
 ## Repository layout
 
