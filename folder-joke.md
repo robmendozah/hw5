@@ -1,0 +1,5 @@
+# Folder Joke
+
+Why did the computer go to the doctor?
+
+It had a virus.

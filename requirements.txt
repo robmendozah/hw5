@@ -1,0 +1,11 @@
+# Problems 3-4: the campus-customs MCP server
+fastmcp==4.0.11
+
+# Problem 5: the five-agent team
+pydantic-ai-slim[openai,mcp]==2.54.0
+python-dotenv==1.2.4
+
+# Problem 7: the FastAPI backend
+fastapi==0.142.4
+uvicorn[standard]==0.54.0
+httpx==0.28.1

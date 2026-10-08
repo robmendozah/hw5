@@ -1,0 +1,188 @@
+{
+  "description": "HW5 Problem 4 smoke-test evidence. One record per MCP tool: the exact prompt given, the exact MCP tool name called, and the unaltered tool output.",
+  "database": "data/campus_customs_new.db",
+  "mcp_server": "campus-customs",
+  "records": [
+    {
+      "ticket_id": 101,
+      "prompt": "Investigate open Ticket 101 using the MCP tools available in this project. Determine whether the customer order can currently be fulfilled, and report the linked invoice and vendor context. Use the appropriate MCP tool and return only information grounded in data/campus_customs_new.db.",
+      "tool_name": "mcp__campus-customs__get_customer_order_fulfillment_context",
+      "tool_arguments": {
+        "ticket_id": 101
+      },
+      "tool_output": {
+        "found": true,
+        "ticket_id": 101,
+        "ticket_type": "customer_order",
+        "ticket_status": "open",
+        "customer": "Tauhid Zaman",
+        "subject": "Bulldog tee",
+        "notes": "Needs a tee in size S.",
+        "created_at": "2026-08-31T09:15:00-04:00",
+        "sku": "CC-TEE-WHITE",
+        "size": "S",
+        "requested_quantity": 1,
+        "product_name": "Classic Bulldog Tee",
+        "inventory_quantity": 0,
+        "inventory_location": "Aisle B",
+        "inventory_row_found": true,
+        "can_fulfill": false,
+        "shortfall_quantity": 1,
+        "invoice_id": 501,
+        "invoice_found": true,
+        "invoice_amount": 840,
+        "invoice_due_date": "2026-08-28",
+        "invoice_status": "open",
+        "invoice_description": "Rush reprint CC-TEE-WHITE S",
+        "vendor_id": 1,
+        "vendor_name": "Bulldog Print Co",
+        "vendor_specialty": "apparel reprint",
+        "vendor_lead_days": 5,
+        "notes_on_data": {
+          "sku_size_to_inventory": "value-based join, not a declared foreign key",
+          "ticket_to_invoice": "declared foreign key tickets.invoice_id -> invoices.id",
+          "invoice_to_vendor": "declared foreign key invoices.vendor_id -> vendors.id"
+        }
+      },
+      "validation": {
+        "expected": {
+          "sku": "CC-TEE-WHITE",
+          "size": "S",
+          "requested_quantity": 1,
+          "inventory_quantity": 0,
+          "invoice_id": 501,
+          "vendor_name": "Bulldog Print Co"
+        },
+        "result": "all expected values matched"
+      }
+    },
+    {
+      "ticket_id": 102,
+      "prompt": "Investigate open Ticket 102 using the MCP tools available in this project. Summarize the rent obligation, due date, current operating date, and available checking balance, and state whether the current balance is sufficient to cover the rent. Use the appropriate MCP tool and return only information grounded in data/campus_customs_new.db.",
+      "tool_name": "mcp__campus-customs__get_rent_payment_context",
+      "tool_arguments": {
+        "ticket_id": 102
+      },
+      "tool_output": {
+        "found": true,
+        "ticket_id": 102,
+        "ticket_type": "rent_notice",
+        "ticket_status": "open",
+        "counterparty": "Elm City Properties",
+        "subject": "Rent due",
+        "notes": "Email: shop rent due in 2 days.",
+        "created_at": "2026-08-31T11:05:00-04:00",
+        "lease_id": 1,
+        "lease_found": true,
+        "property": "Chapel Street shop",
+        "landlord": "Elm City Properties",
+        "lease_notes": null,
+        "rent_amount": 2400,
+        "due_date": "2026-09-02",
+        "operating_date": "2026-08-31",
+        "days_until_due": 2,
+        "cash_account_name": "checking",
+        "cash_balance": 3400,
+        "cash_balance_as_of": "2026-08-31",
+        "all_cash_accounts": [
+          {
+            "name": "checking",
+            "balance": 3400,
+            "date": "2026-08-31"
+          }
+        ],
+        "balance_after_paying_rent": 1000,
+        "balance_covers_rent": true,
+        "notes_on_data": {
+          "ticket_to_lease": "declared foreign key tickets.lease_id -> leases.id",
+          "landlord_match": "tickets.requester and leases.landlord are separate text fields; compare them, do not assume they match",
+          "calculations": "days_until_due, balance_after_paying_rent and balance_covers_rent are computed only from desk.date_today, leases.monthly_rent, leases.next_due and cash_accounts.balance"
+        }
+      },
+      "validation": {
+        "expected": {
+          "property": "Chapel Street shop",
+          "rent_amount": 2400,
+          "due_date": "2026-09-02",
+          "cash_account_name": "checking",
+          "cash_balance": 3400,
+          "operating_date": "2026-08-31"
+        },
+        "result": "all expected values matched"
+      }
+    },
+    {
+      "ticket_id": 103,
+      "prompt": "Investigate open Ticket 103 using the MCP tools available in this project. Report the requested SKU, size, quantity, current inventory, unit cost, and list price, and identify any inventory shortfall. Use the appropriate MCP tool and return only information grounded in data/campus_customs_new.db. Do not invent an override price or discount policy.",
+      "tool_name": "mcp__campus-customs__get_price_override_context",
+      "tool_arguments": {
+        "ticket_id": 103
+      },
+      "tool_output": {
+        "found": true,
+        "ticket_id": 103,
+        "ticket_type": "price_override",
+        "ticket_status": "open",
+        "customer": "Yale AI Club",
+        "subject": "Bulk hoodie discount",
+        "notes": "Student org wants 20 hoodies, size M, asking for a bulk discount.",
+        "created_at": "2026-08-31T16:55:00-04:00",
+        "sku": "CC-HOOD-NAVY",
+        "size": "M",
+        "requested_quantity": 20,
+        "product_name": "Basic Hoodie Big Yale",
+        "inventory_quantity": 8,
+        "inventory_location": "Aisle A",
+        "inventory_row_found": true,
+        "shortfall_quantity": 12,
+        "inventory_all_sizes_for_sku": [
+          {
+            "size": "L",
+            "qty": 14,
+            "location": "Aisle A"
+          },
+          {
+            "size": "M",
+            "qty": 8,
+            "location": "Aisle A"
+          },
+          {
+            "size": "S",
+            "qty": 4,
+            "location": "Aisle A"
+          },
+          {
+            "size": "XL",
+            "qty": 6,
+            "location": "Aisle A"
+          }
+        ],
+        "pricing_row_found": true,
+        "unit_cost": 22,
+        "list_price": 58,
+        "calculations_from_database_fields_only": {
+          "list_price_gross_margin_per_unit": 36,
+          "list_price_gross_margin_pct": 62.07,
+          "requested_qty_revenue_at_list": 1160,
+          "requested_qty_cost": 440
+        },
+        "notes_on_data": {
+          "sku_size_to_inventory": "value-based join, not a declared foreign key",
+          "sku_to_pricing": "value-based join, not a declared foreign key",
+          "no_pricing_policy_in_database": "the database contains no approved override price, discount cap or required margin threshold"
+        }
+      },
+      "validation": {
+        "expected": {
+          "sku": "CC-HOOD-NAVY",
+          "size": "M",
+          "requested_quantity": 20,
+          "inventory_quantity": 8,
+          "unit_cost": 22,
+          "list_price": 58
+        },
+        "result": "all expected values matched"
+      }
+    }
+  ]
+}
