@@ -1,0 +1,6 @@
+https://github.com/robmendozah/hw5
+
+Campus Customs — Multi-Agent Operations Desk (HW5)
+Public repository. Clone with:
+
+  git clone https://github.com/robmendozah/hw5.git
