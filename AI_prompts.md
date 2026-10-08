@@ -488,7 +488,46 @@ Ohh also i think we should merge section 1 and 2 of the reflection.
 
 The three evaluations were inserted verbatim apart from two touches — one missing article and one comma — leaving the argument, ratings and voice as written. Sections 1 and 2 were then merged into a single per-ticket section ("Evaluation of performance & Actual vs Expected"), since both are organised by ticket; the remaining sections renumbered to 2-4. Star ratings render as chips beside each ticket heading. 58 boxes remain blank; only the three evaluation boxes carry content.
 
-## Problem 11 — (title to be provided)
+## Problem 11 — Submit to GitHub
+
+### Prompt(s)
+
+```text
+Let's move forward with Problem 11 — Submit to GitHub.
+
+This is the final packaging and submission step for HW5. The working application is already complete; do not redesign the architecture or change working business logic unless a genuine packaging issue requires it.
+
+Verify the hw5/ file structure against the attached reference tree. Do not delete implementation files genuinely required for the working agent system, backend or frontend merely to match the screenshot; remove only clearly unnecessary temporary/debug/cache files, and exclude Python caches, frontend build artifacts and machine-specific files.
+
+Verify .gitignore protects .env, Python caches, .pyc, virtual environments, node_modules, Vite build output, OS temporary files and IDE files — without ignoring .env.example, .mcp.json, either database under data/, or the required output deliverables.
+
+Secret audit (critical): confirm .env is ignored, not staged and not tracked; check the files that will be committed for API keys, tokens or passwords, paying special attention to PORTKEY_API_KEY, GitHub tokens, .mcp.json, logs, audit files and configuration. Keep .env.example with placeholder names only. If a real secret has already entered Git history, do NOT push publicly — stop and say what needs sanitizing.
+
+Both data/campus_customs.db and data/campus_customs_new.db must be committed.
+
+Finish README.md so a grader can clone and run the project: project overview, setup, clean database run, how to start the MCP server, the FastAPI backend and the React dashboard using the actual commands, how to do a full three-ticket run, and where the main deliverables live. Do not include the real key and do not invent commands.
+
+Run a reproducibility check, inspect Git state before committing, create a clean final commit, and push to a PUBLIC repository under my authenticated GitHub account. Then verify the repository exists, is public, has the latest commit, can be cloned, does not contain .env, and does contain both database files. Write the final URL to output/github_url.txt and push it.
+```
+
+### What was lacking
+
+Nothing blocking. Two things the brief could not have known: the real `.env` lives one directory above `hw5/`, so a repository rooted at `hw5/` cannot physically contain it; and `.mcp.json` carries absolute paths from the build machine, which is not a secret but is worth a caveat for anyone cloning — a note was added to the README rather than editing the file, since the brief asked to keep it.
+
+### Additional prompt(s)
+
+```text
+(no follow-up prompt was needed)
+```
+
+#### Outcome
+
+Public repository: **https://github.com/robmendozah/hw5** — 68 files, two commits, branch `main`, local and remote HEAD identical.
+
+Created `.gitignore`, `.env.example` and `README.md`; removed `__pycache__`. Verified by cloning the public repository fresh and sweeping it: no `.env` in the working tree or anywhere in history, no live key and no key-shaped literal in any of the 68 files including both binary databases, and zero tracked files under `node_modules`, `__pycache__`, `.venv` or `dist`. Both databases are present at 53,248 bytes each.
+
+The working database was committed in its post-Problem-9 state (two payments, three resolved tickets, $160.00) rather than reset, so the run evidence stays intact. `verify_problem5.py` passed 33/33 immediately before the commit; `test_api.py` was deliberately not run, because it mutates the database and would have destroyed that evidence.
+
 
 ### Prompt(s)
 
